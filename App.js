@@ -62,7 +62,7 @@ const Body = () => {
     return (
         <main>
             {resList.map((res) => {
-                return <RestaurantCard {...res.data} />;
+                return <RestaurantCard {...res.data} key={res.data.id} />;
             })}
         </main>
     );
