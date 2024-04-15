@@ -1,0 +1,29 @@
+{
+    "name": "foodmania",
+    "version": "1.0.0",
+    "description": "Restaurant Website created with React",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "rm -r dist & parcel index.html",
+        "build": "rm -r dist & parcel build index.html"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AbdulRehman164/FoodMania.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/AbdulRehman164/FoodMania/issues"
+    },
+    "homepage": "https://github.com/AbdulRehman164/FoodMania#readme",
+    "devDependencies": {
+        "parcel": "^2.12.0",
+        "process": "^0.11.10"
+    },
+    "dependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    }
+}
