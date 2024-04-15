@@ -28,6 +28,10 @@ nav {
 
 main {
     margin: 2rem 4rem;
+    /* display: flex; */
+}
+
+.restaurant-list {
     display: flex;
     flex-wrap: wrap;
     gap: 2.5rem;
