@@ -1,4 +1,4 @@
-const resList = [
+export const resList = [
     {
         type: 'restaurant',
         data: {
@@ -1332,4 +1332,8 @@ const resList = [
     },
 ];
 
-export default resList;
+export const IMG_LOGO =
+    'https://dhgf5mcbrms62.cloudfront.net/33296561/header-HnrssT/YMDsfIA-600x600.webp';
+
+export const IMG_PLACEHOLDER =
+    'https://repstack.co/wp-content/uploads/2021/08/placeholder.png';
