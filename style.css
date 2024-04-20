@@ -31,17 +31,27 @@ main {
     /* display: flex; */
 }
 
-.restaurant-list {
+.restaurant-list,
+.shimmer-container {
     display: flex;
     flex-wrap: wrap;
     gap: 2.5rem;
 }
 
-.card {
+.card,
+.shimmer-box {
     width: 250px;
     border: 1px solid black;
+    cursor: pointer;
 }
 
 .card > img {
     width: 100%;
+}
+
+.shimmer-box {
+    height: 70vh;
+    background-color: #d6d8da;
+    border: none;
+    cursor: default;
 }

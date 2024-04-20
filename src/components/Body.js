@@ -1,17 +1,38 @@
 import RestaurantCard from './RestaurantCard';
-import { resList } from '../constants';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Shimmer from './Shimmer';
 
-function handleSearch(inputText) {
+function handleSearch(inputText, resList) {
     const filteredData = resList.filter((res) =>
-        res.data.name.toLowerCase().includes(inputText.toLowerCase())
+        res?.info?.name?.toLowerCase()?.includes(inputText?.toLowerCase())
     );
     return filteredData;
 }
 
 const Body = () => {
     const [inputText, setInputText] = useState('');
-    const [restaurants, setRestaurants] = useState(resList);
+    const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+    const [allRestaurants, setAllRestaurants] = useState([]);
+
+    useEffect(() => {
+        async function getRestaurants() {
+            const response = await fetch(
+                'https://www.swiggy.com/api/seo/getListing?lat=19.2133035606211&lng=72.87611371920241',
+                { mode: 'cors' }
+            );
+            const result = await response.json();
+            setFilteredRestaurants(
+                result?.data?.success?.cards[1]?.card?.card?.gridElements
+                    ?.infoWithStyle?.restaurants
+            );
+            setAllRestaurants(
+                result?.data?.success?.cards[1]?.card?.card?.gridElements
+                    ?.infoWithStyle?.restaurants
+            );
+        }
+        getRestaurants();
+    }, []);
+
     return (
         <main>
             <div className="search-bar">
@@ -25,18 +46,27 @@ const Body = () => {
                 />
                 <button
                     onClick={() => {
-                        const filteredData = handleSearch(inputText);
-                        setRestaurants(filteredData);
+                        const filteredData = handleSearch(
+                            inputText,
+                            allRestaurants
+                        );
+                        setFilteredRestaurants(filteredData);
                     }}
                 >
                     Search
                 </button>
             </div>
-            <div className="restaurant-list">
-                {restaurants.map((res) => {
-                    return <RestaurantCard {...res.data} key={res.data.id} />;
-                })}
-            </div>
+            {filteredRestaurants.length === 0 ? (
+                <Shimmer />
+            ) : (
+                <div className="restaurant-list">
+                    {filteredRestaurants.map((res) => {
+                        return (
+                            <RestaurantCard {...res.info} key={res.info.id} />
+                        );
+                    })}
+                </div>
+            )}
         </main>
     );
 };
