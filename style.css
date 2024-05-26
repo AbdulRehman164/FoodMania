@@ -45,7 +45,7 @@ main {
     cursor: pointer;
 }
 
-.card > img {
+.card img {
     width: 100%;
 }
 
@@ -54,4 +54,9 @@ main {
     background-color: #d6d8da;
     border: none;
     cursor: default;
+}
+
+#restaurantMenu {
+    display: flex;
+    gap: 2rem;
 }
