@@ -1,20 +1,11 @@
-function ShimmerBox() {
-    return <div className="shimmer-box"></div>;
-}
-
 export default function Shimmer() {
     return (
         <div className="shimmer-container">
-            <ShimmerBox />
-            <ShimmerBox />
-            <ShimmerBox />
-            <ShimmerBox />
-            <ShimmerBox />
-            <ShimmerBox />
-            <ShimmerBox />
-            <ShimmerBox />
-            <ShimmerBox />
-            <ShimmerBox />
+            {Array(10)
+                .fill('')
+                .map((e, index) => (
+                    <div className="shimmer-box" key={index}></div>
+                ))}
         </div>
     );
 }

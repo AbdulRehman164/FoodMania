@@ -14,22 +14,23 @@ const Body = () => {
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
     const [allRestaurants, setAllRestaurants] = useState([]);
 
+    async function getRestaurants() {
+        const response = await fetch(
+            'https://www.swiggy.com/api/seo/getListing?lat=19.2133035606211&lng=72.87611371920241',
+            { mode: 'cors' }
+        );
+        const result = await response.json();
+        setFilteredRestaurants(
+            result?.data?.success?.cards[1]?.card?.card?.gridElements
+                ?.infoWithStyle?.restaurants
+        );
+        setAllRestaurants(
+            result?.data?.success?.cards[1]?.card?.card?.gridElements
+                ?.infoWithStyle?.restaurants
+        );
+    }
+
     useEffect(() => {
-        async function getRestaurants() {
-            const response = await fetch(
-                'https://www.swiggy.com/api/seo/getListing?lat=19.2133035606211&lng=72.87611371920241',
-                { mode: 'cors' }
-            );
-            const result = await response.json();
-            setFilteredRestaurants(
-                result?.data?.success?.cards[1]?.card?.card?.gridElements
-                    ?.infoWithStyle?.restaurants
-            );
-            setAllRestaurants(
-                result?.data?.success?.cards[1]?.card?.card?.gridElements
-                    ?.infoWithStyle?.restaurants
-            );
-        }
         getRestaurants();
     }, []);
 
