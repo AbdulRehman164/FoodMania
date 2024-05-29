@@ -1,7 +1,8 @@
 import { IMG_LOGO } from '../constants';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    const navigate = useNavigate();
     return (
         <header>
             <nav>
@@ -31,6 +32,14 @@ const Header = () => {
                         </li>
                     </ul>
                 </div>
+                <button
+                    onClick={() => {
+                        navigate('/login');
+                    }}
+                    id="login-btn"
+                >
+                    login
+                </button>
             </nav>
         </header>
     );
