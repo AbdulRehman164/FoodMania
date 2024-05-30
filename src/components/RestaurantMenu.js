@@ -1,23 +1,10 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CLOUDINARY_IMG } from '../constants';
+import useMenu from '../utils/useMenu';
 
 const RestaurantMenu = () => {
-    const [restaurant, setRestaurant] = useState(null);
     const { id } = useParams();
-
-    async function getRestaurantMenu() {
-        const response = await fetch(
-            'https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.591945&lng=73.73897649999999&restaurantId=' +
-                id
-        );
-        const result = await response.json();
-        setRestaurant(result?.data?.cards);
-    }
-
-    useEffect(() => {
-        getRestaurantMenu();
-    }, []);
+    const restaurant = useMenu(id);
 
     const info = restaurant?.[2]?.card?.card?.info;
     const menus = restaurant?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;

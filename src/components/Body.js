@@ -1,38 +1,13 @@
 import RestaurantCard from './RestaurantCard';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Shimmer from './Shimmer';
-
-function handleSearch(inputText, resList) {
-    const filteredData = resList.filter((res) =>
-        res?.info?.name?.toLowerCase()?.includes(inputText?.toLowerCase())
-    );
-    return filteredData;
-}
+import { filterData } from '../utils/helper';
+import useRestaurant from '../utils/useRestaurant';
 
 const Body = () => {
     const [inputText, setInputText] = useState('');
-    const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-    const [allRestaurants, setAllRestaurants] = useState([]);
-
-    async function getRestaurants() {
-        const response = await fetch(
-            'https://www.swiggy.com/api/seo/getListing?lat=19.2133035606211&lng=72.87611371920241',
-            { mode: 'cors' }
-        );
-        const result = await response.json();
-        setFilteredRestaurants(
-            result?.data?.success?.cards[1]?.card?.card?.gridElements
-                ?.infoWithStyle?.restaurants
-        );
-        setAllRestaurants(
-            result?.data?.success?.cards[1]?.card?.card?.gridElements
-                ?.infoWithStyle?.restaurants
-        );
-    }
-
-    useEffect(() => {
-        getRestaurants();
-    }, []);
+    const [allRestaurants, filteredRestaurants, setFilteredRestaurants] =
+        useRestaurant();
 
     return (
         <main>
@@ -47,7 +22,7 @@ const Body = () => {
                 />
                 <button
                     onClick={() => {
-                        const filteredData = handleSearch(
+                        const filteredData = filterData(
                             inputText,
                             allRestaurants
                         );
