@@ -1,8 +1,10 @@
 import { IMG_LOGO } from '../constants';
 import { Link, useNavigate } from 'react-router-dom';
+import useIsOnline from '../utils/useIsOnline';
 
 const Header = () => {
     const navigate = useNavigate();
+    const isOnline = useIsOnline();
     return (
         <header>
             <nav>
@@ -35,6 +37,7 @@ const Header = () => {
                         </li>
                     </ul>
                 </div>
+                <div>{isOnline ? 'Online' : 'Offline'}</div>
                 <button
                     onClick={() => {
                         navigate('/login');
