@@ -1,12 +1,23 @@
 import { Formik, Field, Form } from 'formik';
 import { useState } from 'react';
+import useLocalStorage from '../utils/useLocalStorage';
 
 const Login = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showError, setShowError] = useState(false);
-    return isLoggedIn ? (
+    const [getValue, setValue] = useLocalStorage();
+
+    return isLoggedIn || getValue('loggedInStatus') === 'true' ? (
         <div>
             <h1>You are logged in</h1>
+            <button
+                onClick={() => {
+                    setValue('loggedInStatus', 'false');
+                    setIsLoggedIn(false);
+                }}
+            >
+                logout
+            </button>
         </div>
     ) : (
         <div>
@@ -17,6 +28,7 @@ const Login = () => {
                         values.userName === 'rehman' &&
                         values.password === 'rehman'
                     ) {
+                        setValue('loggedInStatus', 'true');
                         setIsLoggedIn(true);
                     } else {
                         setShowError(true);
