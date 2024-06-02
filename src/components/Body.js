@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Shimmer from './Shimmer';
 import { filterData } from '../utils/helper';
 import useRestaurant from '../utils/useRestaurant';
+import searchIcon from '../assets/img/search-icon.svg';
 
 const Body = () => {
     const [inputText, setInputText] = useState('');
@@ -10,9 +11,10 @@ const Body = () => {
         useRestaurant();
 
     return (
-        <main>
-            <div className="search-bar">
+        <main className="m-10 mx-28 flex flex-col gap-10">
+            <div>
                 <input
+                    className="border-b border-solid border-gray-300 rounded focus:border-orange-400 outline-none px-2 font-semibold"
                     type="text"
                     placeholder="Search..."
                     value={inputText}
@@ -21,6 +23,7 @@ const Body = () => {
                     }}
                 />
                 <button
+                    className="hover:opacity-50 active:opacity-100"
                     onClick={() => {
                         const filteredData = filterData(
                             inputText,
@@ -29,13 +32,13 @@ const Body = () => {
                         setFilteredRestaurants(filteredData);
                     }}
                 >
-                    Search
+                    <img className="h-5 w-5" src={searchIcon} alt="" />
                 </button>
             </div>
             {filteredRestaurants.length === 0 ? (
                 <Shimmer />
             ) : (
-                <div className="restaurant-list">
+                <div className="flex flex-wrap gap-16 justify-center">
                     {filteredRestaurants.map((res) => {
                         return (
                             <RestaurantCard {...res.info} key={res.info.id} />

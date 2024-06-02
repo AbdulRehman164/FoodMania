@@ -6,9 +6,9 @@ const Header = () => {
     const navigate = useNavigate();
     const isOnline = useIsOnline();
     return (
-        <header>
-            <nav>
-                <div className="logo-container">
+        <header className="px-5 shadow-md">
+            <nav className="flex justify-between items-center">
+                <div className="h-14 w-14">
                     <a href="/">
                         <img
                             className="logo"
@@ -18,34 +18,39 @@ const Header = () => {
                         />
                     </a>
                 </div>
-                <div className="nav-items-container">
-                    <ul>
-                        <li>
+                <div>
+                    <ul className="flex gap-9 font-medium text-gray-700">
+                        <li className="hover:text-orange-400">
                             <Link to="/">Home</Link>
                         </li>
-                        <li>
+                        <li className="hover:text-orange-400">
                             <Link to="/about">About</Link>
                         </li>
-                        <li>
+                        <li className="hover:text-orange-400">
                             <Link to="/contact">Contact</Link>
                         </li>
-                        <li>
+                        <li className="hover:text-orange-400">
                             <Link to="">Cart</Link>
                         </li>
-                        <li>
+                        <li className="hover:text-orange-400">
                             <Link to="/instamart">Instamart</Link>
                         </li>
                     </ul>
                 </div>
-                <div>{isOnline ? 'Online' : 'Offline'}</div>
-                <button
-                    onClick={() => {
-                        navigate('/login');
-                    }}
-                    id="login-btn"
-                >
-                    login
-                </button>
+                <div className="font-medium text-gray-700 flex gap-5 items-center">
+                    <span className="text-xs text-center">
+                        {isOnline ? '🟢' : '🔴'}
+                    </span>
+                    <button
+                        className="hover:text-orange-400"
+                        onClick={() => {
+                            navigate('/login');
+                        }}
+                        id="login-btn"
+                    >
+                        Login
+                    </button>
+                </div>
             </nav>
         </header>
     );
