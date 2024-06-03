@@ -1,10 +1,14 @@
 import { IMG_LOGO } from '../constants';
 import { Link, useNavigate } from 'react-router-dom';
 import useIsOnline from '../utils/useIsOnline';
+import LoginContext from '../utils/LoginContext';
+import { useContext } from 'react';
 
 const Header = () => {
     const navigate = useNavigate();
     const isOnline = useIsOnline();
+    const loginData = useContext(LoginContext);
+
     return (
         <header className="px-5 shadow-md">
             <nav className="flex justify-between items-center">
@@ -41,6 +45,7 @@ const Header = () => {
                     <span className="text-xs text-center">
                         {isOnline ? '🟢' : '🔴'}
                     </span>
+
                     <button
                         className="hover:text-orange-400"
                         onClick={() => {
@@ -48,7 +53,9 @@ const Header = () => {
                         }}
                         id="login-btn"
                     >
-                        Login
+                        {loginData.loginState
+                            ? loginData.userLoginData.name
+                            : 'Login'}
                     </button>
                 </div>
             </nav>

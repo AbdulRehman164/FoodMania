@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import Header from './components/Header';
 import Body from './components/Body';
@@ -7,18 +7,24 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Error from './components/Error';
 import RestaurantMenu from './components/RestaurantMenu';
-import Login from './components/Login';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import LoginContext from './utils/LoginContext';
 
 const Instamart = lazy(() => import('./components/Instamart'));
 
 const App = () => {
+    const [user, setUser] = useState({ loginState: false, userLoginData: {} });
     return (
-        <>
+        <LoginContext.Provider
+            value={{
+                ...user,
+                setUser,
+            }}
+        >
             <Header />
             <Outlet />
             <Footer />
-        </>
+        </LoginContext.Provider>
     );
 };
 
@@ -30,7 +36,7 @@ const appRouter = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Body />,
+                element: <Body isLoginVisible={false} />,
             },
             {
                 path: '/about',
@@ -46,7 +52,7 @@ const appRouter = createBrowserRouter([
             },
             {
                 path: '/login',
-                element: <Login />,
+                element: <Body isLoginVisible={true} />,
             },
             {
                 path: '/instamart',

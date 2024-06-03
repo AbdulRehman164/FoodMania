@@ -10,7 +10,7 @@ const RestaurantCard = ({
     id,
 }) => {
     return (
-        <div className="w-52 rounded-md">
+        <div className="w-52 rounded-md hover:scale-95 transition-all">
             <Link to={'/restaurant/' + id}>
                 <img
                     className="h-52 w-52 rounded-md"

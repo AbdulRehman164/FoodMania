@@ -4,14 +4,16 @@ import Shimmer from './Shimmer';
 import { filterData } from '../utils/helper';
 import useRestaurant from '../utils/useRestaurant';
 import searchIcon from '../assets/img/search-icon.svg';
+import Login from './Login';
 
-const Body = () => {
+const Body = ({ isLoginVisible }) => {
     const [inputText, setInputText] = useState('');
     const [allRestaurants, filteredRestaurants, setFilteredRestaurants] =
         useRestaurant();
 
     return (
         <main className="m-10 mx-28 flex flex-col gap-10">
+            <Login isLoginVisible={isLoginVisible} />
             <div>
                 <input
                     className="border-b border-solid border-gray-300 rounded focus:border-orange-400 outline-none px-2 font-semibold"
