@@ -34,6 +34,7 @@ const Login = ({ isLoginVisible }) => {
             <div className=" shadow-lg shadow-gray-600 rounded-l h-3/4 w-96 z-10 absolute inset-x-1/3 bg-white pb-5 px-10 pt-10">
                 <button
                     onClick={() => {
+                        document.body.classList.remove('overflow-hidden');
                         navigate('/');
                     }}
                     className="text-orange-400 h-10 w-10 rounded outline-none font-bold text-xl absolute right-3 top-1 hover:bg-orange-400 hover:text-white transition-all duration-300"

@@ -1,13 +1,20 @@
 import { useParams } from 'react-router-dom';
 import { CLOUDINARY_IMG } from '../constants';
 import useMenu from '../utils/useMenu';
+import { useState } from 'react';
+import MenuItem from './MenuItem';
 
 const RestaurantMenu = () => {
     const { id } = useParams();
     const restaurant = useMenu(id);
+    const [category, setCategory] = useState('');
 
     const info = restaurant?.[2]?.card?.card?.info;
-    const menus = restaurant?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+    const categoryCards =
+        restaurant?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+    if (restaurant && category === '') {
+        setCategory(categoryCards?.[1]?.card?.card?.title);
+    }
     return (
         <div className="mx-28 my-8 flex flex-col gap-8">
             <h1 className="text-3xl font-bold">{info?.name}</h1>
@@ -27,18 +34,44 @@ const RestaurantMenu = () => {
                     <h2 className="font-bold">{info?.costForTwoMessage}</h2>
                 </div>
                 <div className="restaurantMenu-menu">
-                    {menus
-                        ?.map((menu) => {
-                            return menu?.card?.card?.title ? (
-                                <li
-                                    className="list-none opacity-70 cursor-pointer hover:opacity-100 leading-9"
-                                    key={menu?.card?.card?.title}
-                                >
-                                    {menu?.card?.card?.title}
-                                </li>
-                            ) : null;
-                        })
-                        .slice(2)}
+                    <select
+                        value={category}
+                        onChange={(e) => {
+                            setCategory(e.target.value);
+                        }}
+                    >
+                        {categoryCards
+                            ?.map((categoryCard, index) => {
+                                return categoryCard?.card?.card?.title ? (
+                                    <option
+                                        className="cursor-pointer"
+                                        key={
+                                            categoryCard?.card?.card?.title +
+                                            index
+                                        }
+                                        value={categoryCard?.card?.card?.title}
+                                    >
+                                        {categoryCard?.card?.card?.title}
+                                    </option>
+                                ) : null;
+                            })
+                            .slice(1)}
+                    </select>
+                    <div>
+                        <h1 className="text-3xl font-bold">{category}</h1>
+                        <div className="flex flex-col gap-5">
+                            {categoryCards
+                                ?.filter(
+                                    (categoryCard) =>
+                                        categoryCard?.card?.card?.title ===
+                                        category
+                                )[0]
+                                ?.card?.card?.itemCards?.map((itemCard) => {
+                                    const item = itemCard?.card?.info;
+                                    return <MenuItem key={item.id} {...item} />;
+                                })}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
