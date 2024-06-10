@@ -4,6 +4,7 @@ import js from '../assets/img/js.png';
 import parcel from '../assets/img/parcel.avif';
 import react from '../assets/img/react.png';
 import html from '../assets/img/html.png';
+import tailwind from '../assets/img/tailwind.png';
 import foodmania from '../assets/img/foodmania.jpg';
 import { useEffect, useState } from 'react';
 
@@ -64,6 +65,7 @@ const About = () => {
                     <img src={react} alt="react" className="h-24 w-24" />
                     <img src={parcel} alt="parcel" className="h-24 w-24" />
                     <img src={babel} alt="babel" className="h-24 w-24" />
+                    <img src={tailwind} alt="babel" className="h-24 w-24" />
                 </div>
             </div>
             <div className="flex flex-col gap-12 about-child">

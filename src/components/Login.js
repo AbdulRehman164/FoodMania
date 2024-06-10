@@ -6,10 +6,24 @@ import passwordIcon from '../assets/img/password-icon.svg';
 import LoginContext from '../utils/LoginContext';
 import { useNavigate } from 'react-router-dom';
 
+const CloseButton = () => {
+    const navigate = useNavigate();
+    return (
+        <button
+            onClick={() => {
+                document.body.classList.remove('overflow-hidden');
+                navigate('/');
+            }}
+            className="text-orange-400 h-10 w-10 rounded outline-none font-bold text-xl absolute right-3 top-1 hover:bg-orange-400 hover:text-white transition-all duration-300"
+        >
+            x
+        </button>
+    );
+};
+
 const Login = ({ isLoginVisible }) => {
     const [showError, setShowError] = useState(false);
     const loginData = useContext(LoginContext);
-    const navigate = useNavigate();
 
     if (!isLoginVisible) {
         return;
@@ -17,14 +31,19 @@ const Login = ({ isLoginVisible }) => {
     document.body.classList.add('overflow-hidden');
     return loginData.loginState ? (
         <div>
-            <h1>You are logged in</h1>
-            <button
-                onClick={() => {
-                    loginData.setUser({ ...loginData, loginState: false });
-                }}
-            >
-                logout
-            </button>
+            <div className="absolute inset-0 h-screen w-screen bg-black opacity-50"></div>
+            <div className="shadow-lg shadow-gray-600 rounded-l h-60 w-96 z-10 absolute inset-x-1/3 bg-white pb-5 px-10 pt-10 flex flex-col justify-around">
+                <CloseButton />
+                <h1 className="font-xl font-bold">You are logged in</h1>
+                <button
+                    onClick={() => {
+                        loginData.setUser({ ...loginData, loginState: false });
+                    }}
+                    className="bg-red-500 font-bold text-white py-2 rounded-md"
+                >
+                    logout
+                </button>
+            </div>
         </div>
     ) : (
         <div>
@@ -32,15 +51,7 @@ const Login = ({ isLoginVisible }) => {
                 <div className="absolute inset-0 h-screen w-screen bg-black opacity-50"></div>
             ) : null}
             <div className=" shadow-lg shadow-gray-600 rounded-l h-3/4 w-96 z-10 absolute inset-x-1/3 bg-white pb-5 px-10 pt-10">
-                <button
-                    onClick={() => {
-                        document.body.classList.remove('overflow-hidden');
-                        navigate('/');
-                    }}
-                    className="text-orange-400 h-10 w-10 rounded outline-none font-bold text-xl absolute right-3 top-1 hover:bg-orange-400 hover:text-white transition-all duration-300"
-                >
-                    x
-                </button>
+                <CloseButton />
                 <Formik
                     initialValues={{ userName: '', password: '' }}
                     onSubmit={(values) => {
@@ -53,8 +64,6 @@ const Login = ({ isLoginVisible }) => {
                                 userLoginData: { name: values.userName },
                                 loginState: true,
                             });
-                            document.body.classList.remove('overflow-hidden');
-                            navigate('/');
                         } else {
                             setShowError(true);
                         }
