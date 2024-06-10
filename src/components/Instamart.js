@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const Section = ({ title, description, isVisible, setIsVisible }) => {
     return (
-        <div className="border border-black p-2">
+        <div className="border border-black p-2 flex-1">
             <h2 className="text-xl font-bold">{title}</h2>
             {isVisible ? (
                 <>

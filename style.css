@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.animate-scroll {
+    opacity: 0;
+    animation: show 1s linear forwards;
+}
+
+@keyframes show {
+    to {
+        opacity: 1;
+    }
+}

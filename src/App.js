@@ -25,9 +25,11 @@ const App = () => {
                     setUser,
                 }}
             >
-                <Header />
-                <Outlet />
-                <Footer />
+                <div className="min-h-[100vh] flex flex-col">
+                    <Header />
+                    <Outlet />
+                    <Footer />
+                </div>
             </LoginContext.Provider>
         </Provider>
     );

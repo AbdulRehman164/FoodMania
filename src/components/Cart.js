@@ -18,22 +18,24 @@ const Cart = () => {
     );
 
     return (
-        <div className="flex flex-col px-28 py-4 gap-5">
+        <div className="flex flex-col px-28 py-4 gap-5 flex-1">
             <h1 className="text-3xl font-bold">Cart</h1>
             {items.length > 0 ? (
                 <>
                     <table className="w-full">
-                        {items.map((item) => {
-                            return <CartItem key={item.id} {...item} />;
-                        })}
-                        {items.length > 1 ? (
-                            <tr className="shadow-md">
-                                <td className="p-2 font-semibold">Total</td>
-                                <td className="p-2 font-bold">
-                                    Rs. {totalPrice}
-                                </td>
-                            </tr>
-                        ) : null}
+                        <tbody>
+                            {items.map((item) => {
+                                return <CartItem key={item.id} {...item} />;
+                            })}
+                            {items.length > 1 ? (
+                                <tr className="shadow-md">
+                                    <td className="p-2 font-semibold">Total</td>
+                                    <td className="p-2 font-bold">
+                                        Rs. {totalPrice}
+                                    </td>
+                                </tr>
+                            ) : null}
+                        </tbody>
                     </table>
                     <div className="flex gap-6 justify-end">
                         <button
