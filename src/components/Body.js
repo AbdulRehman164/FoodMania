@@ -5,14 +5,21 @@ import { filterData } from '../utils/helper';
 import useRestaurant from '../utils/useRestaurant';
 import searchIcon from '../assets/img/search-icon.svg';
 import Login from './Login';
+import NetworkError from './NetworkError';
 
 const Body = ({ isLoginVisible }) => {
     const [inputText, setInputText] = useState('');
-    const [allRestaurants, filteredRestaurants, setFilteredRestaurants] =
-        useRestaurant();
-
+    const [
+        allRestaurants,
+        filteredRestaurants,
+        setFilteredRestaurants,
+        isError,
+    ] = useRestaurant();
+    if (isError) {
+        return <NetworkError />;
+    }
     return (
-        <main className="m-10 mx-28 flex flex-col gap-10">
+        <main className="m-10 mx-28 flex flex-col gap-10 flex-1">
             <Login isLoginVisible={isLoginVisible} />
             <div>
                 <input
